@@ -1,0 +1,37 @@
+#!/bin/bash -e
+
+# https://open5gs.org/open5gs/docs/tutorial/03-VoLTE-dockerized/
+
+# Step 1: Prepare SIM cards for VoLTE
+# ...
+
+# Step 2: Build Open5GS, Kamailio with docker-compose
+test -d docker_open5gs || git clone https://github.com/herlesupreeth/docker_open5gs
+pushd docker_open5gs
+
+pushd base
+docker build -t docker_open5gs .
+popd
+
+pushd ims_base
+docker build -t docker_kamailio .
+popd
+
+# Step 3: Configuring your setup
+cat .env | sed 's:^MCC=.*:MCC=901:' \
+		 | sed 's:^MNC=.*:MNC=70:' \
+		 | sed 's:^TEST_NETWORK=.*:TEST_NETWORK=10.0.0.0/24:' \
+		 | sed 's:^DOCKER_HOST_IP=.*:DOCKER_HOST_IP=192.168.130.1:' \
+		 > .env2
+
+# only update .env if there is a change
+diff .env .env2 || cp .env2 .env
+rm -f .env2
+
+# Step 4: Building 4G/5G Core + IMS related components images
+source .env
+docker-compose build
+
+# Step 5: (Optional) Run srsENB in a separate container
+docker-compose -f srsenb.yaml build
+
