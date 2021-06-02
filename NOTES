@@ -1,0 +1,5 @@
+- Run setup.sh first to build everything
+- then start.sh to start everything in background
+- finally, provision the IMSIs with provision.sh
+
+- WebUI on http://localhost:3000

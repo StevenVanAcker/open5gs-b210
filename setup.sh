@@ -20,7 +20,7 @@ popd
 # Step 3: Configuring your setup
 cat .env | sed 's:^MCC=.*:MCC=901:' \
 		 | sed 's:^MNC=.*:MNC=70:' \
-		 | sed 's:^TEST_NETWORK=.*:TEST_NETWORK=10.0.0.0/24:' \
+		 | sed 's:^TEST_NETWORK=.*:TEST_NETWORK=172.22.0.0/24:' \
 		 | sed 's:^DOCKER_HOST_IP=.*:DOCKER_HOST_IP=192.168.130.1:' \
 		 > .env2
 
@@ -34,4 +34,9 @@ docker-compose build
 
 # Step 5: (Optional) Run srsENB in a separate container
 docker-compose -f srsenb.yaml build
+
+
+# Step 6: Configuration and register two UE
+test -d open5gs || git clone https://github.com/open5gs/open5gs.git
+cp open5gs/misc/db/open5gs-dbctl docker_open5gs/mongo/
 
