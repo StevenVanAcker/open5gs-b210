@@ -6,15 +6,15 @@
 # ...
 
 # Step 2: Build Open5GS, Kamailio with docker-compose
-test -d docker_open5gs || git clone https://github.com/herlesupreeth/docker_open5gs
+git clone https://github.com/herlesupreeth/docker_open5gs
 pushd docker_open5gs
 
 pushd base
-docker build -t docker_open5gs .
+docker build --no-cache --force-rm -t docker_open5gs .
 popd
 
 pushd ims_base
-docker build -t docker_kamailio .
+docker build --no-cache --force-rm -t docker_kamailio .
 popd
 
 # Step 3: Configuring your setup
@@ -30,13 +30,15 @@ rm -f .env2
 
 # Step 4: Building 4G/5G Core + IMS related components images
 source .env
-docker-compose build
+docker-compose -f deploy-all.yaml build
 
 # Step 5: (Optional) Run srsENB in a separate container
 docker-compose -f srsenb.yaml build
 
 
+popd
+
 # Step 6: Configuration and register two UE
 test -d open5gs || git clone https://github.com/open5gs/open5gs.git
-cp open5gs/misc/db/open5gs-dbctl docker_open5gs/mongo/
+cp open5gs/misc/db/open5gs-dbctl docker_open5gs/webui/
 
