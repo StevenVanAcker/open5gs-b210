@@ -1,4 +1,5 @@
-- Use clone_and_build.sh to clone repos and build the docker containers
-- Next use start_stop.sh to start all containers
-- Finally, use provision.sh to configure
+- Use 01_clone_and_build.sh to clone repos and build the docker containers
+- Then setup the firewall rules using 02_firewall.sh
+- Next use 03_start_stop.sh to start all containers
+- Finally, use 04_provision.sh to configure
 

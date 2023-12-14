@@ -46,7 +46,7 @@ do
 	dbctl update_apn $imsi ims 0
 
 	# PyHSS
-	./pyhss-tool.py -i $imsi -m $msisdn -k $ki -o $opc
+	./tools/pyhss-tool.py -i $imsi -m $msisdn -k $ki -o $opc
 done
 
 
