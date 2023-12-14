@@ -32,12 +32,23 @@ ensure_pyhss_running
 # actual provisioning
 #
 
-osmohlr subscriber imsi 901700000038510 create
-osmohlr subscriber imsi 901700000038510 update msisdn 510
+cat simcards.csv |grep -v '#' | while read msisdn imsi ki opc; 
+do 
+	echo "Provisioning IMSI $imsi (MSISDN=$msisdn)"
 
-dbctl add 901700000038510 D0B610FE4936B44E1DA671F16E3000B2 9B740A94C78BF61E0E99CD4044403912
-dbctl type 901700000038510 1
-dbctl update_apn 901700000038510 ims 0
+	# OsmoHLR
+	osmohlr subscriber imsi $imsi create
+	osmohlr subscriber imsi $imsi update msisdn $msisdn
 
-dbctl add 901700000038511 11111111111111111111111111111111 22222222222222222222222222222222
+	# WebUI
+	dbctl add $imsi $ki $opc
+	dbctl type $imsi 1
+	dbctl update_apn $imsi ims 0
+
+	# PyHSS
+	./pyhss-tool.py -i $imsi -m $msisdn -k $ki -o $opc
+done
+
+
+
 
