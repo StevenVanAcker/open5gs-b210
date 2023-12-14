@@ -32,6 +32,11 @@ cat .env | sed 's:^MCC=.*:MCC=901:' \
 diff .env .env2 || cp .env2 .env
 rm -f .env2
 
+# Magic step 3.5: make sure NAT is enabled for ims APN. This is a dirty way
+# to abuse the ims APN as if it were the internet APN, because the internet
+# APN doesn't seem to work at all
+sed -i "s:--nat_rule 'no'::" upf/upf_init.sh
+
 # Step 4: Building 4G/5G Core + IMS related components images
 source .env
 docker-compose -f deploy-all.yaml build
