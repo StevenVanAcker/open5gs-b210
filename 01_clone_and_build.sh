@@ -42,7 +42,6 @@ docker-compose -f srsenb.yaml build
 
 popd
 
-# Step 6: Configuration and register two UE
+# Step 6: Configuration and register two UE (prepare provisioning)
 test -d open5gs || git clone https://github.com/open5gs/open5gs.git
-cp open5gs/misc/db/open5gs-dbctl docker_open5gs/webui/
 
