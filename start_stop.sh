@@ -33,7 +33,7 @@ then
 			echo "Network does not exist yet."; 
 			sleep 1; 
 		done 
-		# docker-compose -f docker_open5gs/srsenb.yaml up
+		docker-compose -f docker_open5gs/srsenb.yaml up
 	) &
 
 	docker-compose -f docker_open5gs/deploy-all.yaml up 
