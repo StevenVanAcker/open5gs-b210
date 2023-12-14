@@ -17,6 +17,10 @@ pushd ims_base
 docker build --no-cache --force-rm -t docker_kamailio .
 popd
 
+pushd srslte
+docker build --no-cache --force-rm -t docker_srslte .
+popd
+
 # Step 3: Configuring your setup
 cat .env | sed 's:^MCC=.*:MCC=901:' \
 		 | sed 's:^MNC=.*:MNC=70:' \
