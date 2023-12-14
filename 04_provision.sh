@@ -3,7 +3,7 @@
 # copy file to mongo container and setup bash function
 docker cp open5gs/misc/db/open5gs-dbctl mongo:/data/db/
 dbctl() {
-	docker exec -i mongo /data/db/open5gs-dbctl $*
+	docker exec mongo /data/db/open5gs-dbctl $*
 }
 
 osmohlr() {
