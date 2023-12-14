@@ -15,7 +15,13 @@ ensure_pyhss_running() {
 	do
 		echo "PyHSS didn't start properly, restarting it."
 		docker-compose -f docker_open5gs/deploy-all.yaml restart pyhss
-		sleep 10
+
+		while ! docker top pyhss |grep -q "python3 hss.py";
+		do
+			echo "Waiting until container has started fully."
+			sleep 1;
+		done
+		sleep 3
 	done
 }
 
