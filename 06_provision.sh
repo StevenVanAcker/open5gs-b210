@@ -1,5 +1,7 @@
 #!/bin/bash
 
+APN=yolo.ninjas.apn
+
 # copy file to mongo container and setup bash function
 docker cp open5gs/misc/db/open5gs-dbctl mongo:/data/db/
 dbctl() {
@@ -21,7 +23,7 @@ ensure_pyhss_running() {
 			echo "Waiting until container has started fully."
 			sleep 1;
 		done
-		sleep 3
+		sleep 5
 	done
 }
 
@@ -42,8 +44,8 @@ do
 
 	# WebUI
 	dbctl add $imsi $ki $opc
-	dbctl type $imsi 1
-	dbctl update_apn $imsi ims 0
+	#dbctl type $imsi 1
+	dbctl update_apn $imsi $APN 0
 
 	# PyHSS
 	./tools/pyhss-tool.py -i $imsi -m $msisdn -k $ki -o $opc
