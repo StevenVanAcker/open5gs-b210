@@ -1,3 +1,4 @@
+APN-NAME				-- contains the name of the APN to deploy
 01_clone_and_build.sh	-- clone repos and build docker containers. This also sets MCC and MNC
 02_firewall.sh			-- setup iptables firewall
 03_patch_apn_name.sh	-- change 'ims' to another APN name

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APN=yolo.ninjas.apn
+APN=$(cat APN-NAME)
 
 # copy file to mongo container and setup bash function
 docker cp open5gs/misc/db/open5gs-dbctl mongo:/data/db/
