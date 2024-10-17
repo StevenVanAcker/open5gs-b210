@@ -5,7 +5,7 @@
 # Step 1: Prepare SIM cards for VoLTE
 # ...
 
-# Step 2: Build Open5GS, Kamailio with docker-compose
+# Step 2: Build Open5GS, Kamailio with docker compose
 git clone https://github.com/herlesupreeth/docker_open5gs
 pushd docker_open5gs
 
@@ -39,10 +39,10 @@ sed -i "s:--nat_rule 'no'::" upf/upf_init.sh
 
 # Step 4: Building 4G/5G Core + IMS related components images
 source .env
-docker-compose -f deploy-all.yaml build
+docker compose -f deploy-all.yaml build
 
 # Step 5: (Optional) Run srsENB in a separate container
-docker-compose -f srsenb.yaml build
+docker compose -f srsenb.yaml build
 
 
 popd

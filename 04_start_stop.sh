@@ -5,8 +5,8 @@ cmd=$1
 if [ "$cmd" = "stop" ];
 then
 	echo "Stopping..."
-	docker-compose -f docker_open5gs/deploy-all.yaml down
-	docker-compose -f docker_open5gs/srsenb.yaml down
+	docker compose -f docker_open5gs/deploy-all.yaml down
+	docker compose -f docker_open5gs/srsenb.yaml down
 	exit 0
 fi
 
@@ -16,8 +16,8 @@ then
 	if [ "$cmd" = "cleanstart" ];
 	then
 		echo "Removing all volumes and networks"
-		docker-compose -f docker_open5gs/deploy-all.yaml down -v
-		docker-compose -f docker_open5gs/srsenb.yaml down -v
+		docker compose -f docker_open5gs/deploy-all.yaml down -v
+		docker compose -f docker_open5gs/srsenb.yaml down -v
 
 		echo "Resetting docker repository"
 		pushd docker_open5gs
@@ -33,10 +33,10 @@ then
 			echo "Network does not exist yet."; 
 			sleep 1; 
 		done 
-		docker-compose -f docker_open5gs/srsenb.yaml up
+		docker compose -f docker_open5gs/srsenb.yaml up
 	) &
 
-	docker-compose -f docker_open5gs/deploy-all.yaml up 
+	docker compose -f docker_open5gs/deploy-all.yaml up 
 
 	exit 0
 fi

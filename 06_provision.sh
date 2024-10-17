@@ -16,7 +16,7 @@ ensure_pyhss_running() {
 	while ! curl -sfo /dev/null http://0.0.0.0:8080/docs/;
 	do
 		echo "PyHSS didn't start properly, restarting it."
-		docker-compose -f docker_open5gs/deploy-all.yaml restart pyhss
+		docker compose -f docker_open5gs/deploy-all.yaml restart pyhss
 
 		while ! docker top pyhss |grep -q "python3 hss.py";
 		do
