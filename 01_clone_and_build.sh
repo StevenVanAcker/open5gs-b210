@@ -10,15 +10,15 @@ git clone https://github.com/herlesupreeth/docker_open5gs
 pushd docker_open5gs
 
 pushd base
-docker build --no-cache --force-rm -t docker_open5gs .
+docker image inspect docker_open5gs > /dev/null || docker build --no-cache --force-rm -t docker_open5gs .
 popd
 
 pushd ims_base
-docker build --no-cache --force-rm -t docker_kamailio .
+docker image inspect docker_kamailio > /dev/null ||  docker build --no-cache --force-rm -t docker_kamailio .
 popd
 
 pushd srslte
-docker build --no-cache --force-rm -t docker_srslte .
+docker image inspect docker_srslte > /dev/null || docker build --no-cache --force-rm -t docker_srslte .
 popd
 
 # Step 3: Configuring your setup
