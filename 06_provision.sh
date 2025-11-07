@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. docker_open5gs/.env
+
 APN=$(cat APN-NAME)
 
 # copy file to mongo container and setup bash function
@@ -9,7 +11,7 @@ dbctl() {
 }
 
 osmohlr() {
-	(echo enable ; echo $* ) | docker exec -i osmohlr telnet 0 4258
+	(echo enable ; echo $* ) | docker exec -i osmohlr telnet $OSMOHLR_IP 4258
 }
 
 ensure_pyhss_running() {
