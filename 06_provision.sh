@@ -11,7 +11,7 @@ dbctl() {
 }
 
 osmohlr() {
-	(echo enable ; echo $* ) | docker exec -i osmohlr telnet $OSMOHLR_IP 4258
+	(echo enable ; sleep 0.5; echo $* ; sleep 0.5) | docker exec -i osmohlr telnet $OSMOHLR_IP 4258
 }
 
 ensure_pyhss_running() {
